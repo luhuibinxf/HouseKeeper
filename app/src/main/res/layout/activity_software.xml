@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_software"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.feicui.app.phone.activity.SoftwareActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <edu.feicui.app.phone.view.DrawView
+                android:id="@+id/m_dv1_s"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp" />
+
+            <ImageView
+                android:id="@+id/m_dv_Iv_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@+id/m_dv1_s"
+                android:background="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/m_dv1_tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@+id/m_dv_Iv_1"
+                android:text="手机内置空间" />
+
+            <ImageView
+                android:id="@+id/m_dv_Iv_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/m_dv_Iv_1"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_toRightOf="@+id/m_dv1_s"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/m_dv1_tv_1"
+                android:layout_marginTop="55dp"
+                android:layout_toRightOf="@+id/m_dv_Iv_2"
+                android:text="外置存储空间" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+            <TextView
+                style="@style/SoftwareitemText"
+                android:text="所有软件" />
+
+            <ImageView
+                style="@style/Softwareitem"
+                android:src="@mipmap/ic_arrows_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/SoftwareitemText"
+                android:text="系统软件" />
+
+            <ImageView
+                style="@style/Softwareitem"
+                android:src="@mipmap/ic_arrows_right" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+            <TextView
+                style="@style/SoftwareitemText"
+                android:text="用户软件" />
+
+            <ImageView
+                style="@style/Softwareitem"
+                android:src="@mipmap/ic_arrows_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
