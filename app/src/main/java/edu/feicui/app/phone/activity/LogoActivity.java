@@ -24,7 +24,7 @@ public class LogoActivity extends BaseActivity {
         animDraw.start();
         Animation anim = new AlphaAnimation(0, 1);
         anim.setDuration(5000);
-        anim.setRepeatCount(2);
+        anim.setRepeatCount(1);
         mImgApha.startAnimation(anim);//监听
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -39,7 +39,8 @@ public class LogoActivity extends BaseActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                startActivity(HomeActivity.class);
+                startActivity(HomeActivity.class,R.anim.in_down,R.anim.out_down);
+                finish();
             }
         });
     }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -16,9 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 import edu.feicui.app.phone.R;
+import edu.feicui.app.phone.base.util.BaseActivity;
 import edu.feicui.app.phone.biz.PhoneDatabase;
 
-public class MobileActivity extends AppCompatActivity {
+public class MobileActivity extends BaseActivity {
     Context context;
     GridView mGv;
     List<Map<String, String>> list;
@@ -29,6 +31,9 @@ public class MobileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_mobile);
+
+        Bar();
+
         mGv = (GridView) findViewById(R.id.phone_gv);
         pd = new PhoneDatabase(context);
         list = pd.queryTable();
@@ -46,6 +51,24 @@ public class MobileActivity extends AppCompatActivity {
 //                Log.i("@@@@@", position + "");
                 intent.setClass(MobileActivity.this, PhoneMobileActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    public void Bar() {
+
+        initActionBar();
+        setmTvL("                                    ");
+        setmTvM("  通讯录");
+        setmTvR("                                    ");
+        setmIvL(R.mipmap.btn_homeasup_default);
+        mIvL = (ImageView) findViewById(R.id.m_bar_left_iv);
+        mIvL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+//                setResult(RESULT_OK, getIntent());
+                finish();
             }
         });
     }

@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.feicui.app.phone">
 
+    <!-- 打电话权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 杀死进程 -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
@@ -18,12 +20,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LogoActivity" />
+
+        <service android:name=".service.LeadService" />
+
+        <activity
+            android:name=".activity.LogoActivity"
+            android:noHistory="true" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.MobileActivity" />
         <activity android:name=".activity.PhoneMobileActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.SoftwareActivity" />
+        <activity android:name=".activity.SoftmgrAppshowActivity" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".activity.DetectionActivity" />
+        <activity android:name=".activity.AccelerationActivity"></activity>
     </application>
 
 </manifest>

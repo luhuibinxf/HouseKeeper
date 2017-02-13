@@ -1,7 +1,10 @@
 package edu.feicui.app.phone.activity;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import edu.feicui.app.phone.R;
 import edu.feicui.app.phone.adapter.MCustomPagerAdapter;
 import edu.feicui.app.phone.biz.SaveInstance;
+import edu.feicui.app.phone.service.LeadService;
 
 public class LeadActivity extends AppCompatActivity {
 
@@ -38,12 +42,31 @@ public class LeadActivity extends AppCompatActivity {
 
     SaveInstance saveInstance;
 
+    Intent service = new Intent();
+    LeadService Lservice;
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+            Lservice = ((LeadService.MyBinder) service).getService();
+            Lservice.play();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Save();
+
+
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lead);
+
         mTv = (TextView) findViewById(R.id.lead_VP_tv);
         mTv.setVisibility(View.INVISIBLE);
 
@@ -54,6 +77,7 @@ public class LeadActivity extends AppCompatActivity {
         views = adapter.initViews();
         adapter.setViews(views);
         mVp.setAdapter(adapter);//为什么每次都少这句化呢
+
 
         mVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -76,6 +100,8 @@ public class LeadActivity extends AppCompatActivity {
                     mTv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            unbindService(conn);
+
                             SaveInstance.getSaveInstance(context).putString("isSaved", "ok");//没有这句话的区别
                             Intent intent = new Intent(LeadActivity.this, LogoActivity.class);
                             startActivity(intent);
@@ -107,6 +133,11 @@ public class LeadActivity extends AppCompatActivity {
             Intent intent = new Intent(LeadActivity.this, LogoActivity.class);
             startActivity(intent);
             finish();//注意这句话的作用
+
+        } else {
+
+            service.setClass(LeadActivity.this, LeadService.class);
+            bindService(service, conn, BIND_AUTO_CREATE);
         }
     }
 }

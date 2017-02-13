@@ -3,6 +3,7 @@ package edu.feicui.app.phone.Util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
 
 import edu.feicui.app.phone.R;
 
@@ -20,6 +21,11 @@ public class DialogUtil {
                 .setIcon(R.mipmap.ic_launcher)
                 .setPositiveButton("确定", okListener)
                 .setNegativeButton("取消", cancelListener)
+                .show();
+    }
+    public static void customAlertDialog(Context context, View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view)
                 .show();
     }
 }

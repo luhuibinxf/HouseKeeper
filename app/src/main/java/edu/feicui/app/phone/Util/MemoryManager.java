@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by Administrator on 2017/1/8.
  */
@@ -25,8 +26,10 @@ public class MemoryManager {
     private long BlockSize;//模块大小
     private long BlockCount;//模块数量
     private long AvailCount;//使用数量
-    private float Total;
-    private float Used;
+
+    private float Total;//总共的
+    private float Used;//可用的
+    private float Avail;//用了的
 
     Context mct;
     File file;
@@ -36,12 +39,12 @@ public class MemoryManager {
     List list = new ArrayList();
 
     private PackageManager packageManager;
-    private ActivityManager activityManager;
+    private ActivityManager activityManager;//没注意到这个
 
     public MemoryManager(Context context) {
-        mct = context;
+        this.mct = context;
         packageManager = context.getPackageManager();
-        activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);//这个的作用
     }
 
     /**
@@ -50,7 +53,7 @@ public class MemoryManager {
      * @param context
      * @return
      */
-    public  long getPhoneFreeRamMemory(Context context) {//可以用的内存
+    public long getPhoneFreeRamMemory(Context context) {//可以用的内存
         ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();//获得MemoryInfo对象
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         am.getMemoryInfo(info);
@@ -62,7 +65,7 @@ public class MemoryManager {
      *
      * @return
      */
-    public  long getPhoneTotalramMemory() {//得到完整的内存
+    public long getPhoneTotalramMemory() {//得到完整的内存
         try {
             FileReader fr = new FileReader("/proc/meminfo");
             BufferedReader br = new BufferedReader(fr);
@@ -126,7 +129,10 @@ public class MemoryManager {
         AvailCount = sfs.getAvailableBlocks();
 
         Total = BlockSize * BlockCount / (1024 * 1024);
+
         Used = BlockSize * AvailCount / (1024 * 1024);
+
+        Avail = Total - Used;
 
         float size = (float) (Total - Used) / (float) Total * 100;//注意这是要显示的
         String filesize = df.format(size) + "%";//返回的是String类型的
@@ -142,31 +148,61 @@ public class MemoryManager {
     /**
      * 内
      */
-    public void getDataDirectory() {
+    public List getDataDirectory() {
         file = Environment.getDataDirectory();
         sfs = new StatFs(file.getAbsolutePath());
         BlockSize = sfs.getBlockSize();
         BlockCount = sfs.getBlockCount();
         AvailCount = sfs.getAvailableBlocks();
+
         Total = BlockSize * BlockCount / (1024 * 1024);
         Used = BlockSize * AvailCount / (1024 * 1024);
 
+        Total = BlockSize * BlockCount / (1024 * 1024);
+        int TotalSize = Integer.parseInt(df.format(Total));
+        list.add(TotalSize);
+
+        Used = BlockSize * AvailCount / (1024 * 1024);
+        int UsedSize = Integer.parseInt(df.format(Used));
+        list.add(UsedSize);
+
+        Avail = Total - Used;
+        int AvailSize = Integer.parseInt(df.format(Avail));
+        list.add(AvailSize);
+        return list;
     }
 
     /**
      * 外
      */
-    public void getExternalStorageDirectory() {
+    public List getExternalStorageDirectory() {
         file = Environment.getExternalStorageDirectory();
         sfs = new StatFs(file.getAbsolutePath());
         BlockSize = sfs.getBlockSize();
         BlockCount = sfs.getBlockCount();
         AvailCount = sfs.getAvailableBlocks();
+
         Total = BlockSize * BlockCount / (1024 * 1024);
+
         Used = BlockSize * AvailCount / (1024 * 1024);
 
+        Total = BlockSize * BlockCount / (1024 * 1024);
+        int TotalSize = Integer.parseInt(df.format(Total));
+        list.add(TotalSize);
+
+        Used = BlockSize * AvailCount / (1024 * 1024);
+        int UsedSize = Integer.parseInt(df.format(Used));
+        list.add(UsedSize);
+
+        Avail = Total - Used;
+        int AvailSize = Integer.parseInt(df.format(Avail));
+        list.add(AvailSize);
+        return list;
     }
 
+    /**
+     * @return
+     */
     public List TotalAllStorage() {
         file = Environment.getDataDirectory();
         sfs = new StatFs(file.getAbsolutePath());

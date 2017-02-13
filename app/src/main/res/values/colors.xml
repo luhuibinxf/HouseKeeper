@@ -7,4 +7,11 @@
     <color name="white">#FFFFFF</color><!--白色-->
     <color name="yellow">#ffff00</color><!--黄色 -->
     <color name="silver">#c0c0c0</color><!--银色 -->
+    <color name="limegreen">#32CD32</color><!--橙绿色 -->
+    <color name="deepskyblue">#00BFFF</color><!--深天蓝色 -->
+    <color name="mediumspringgreen">#00FA9A</color><!--中春绿色 -->
+    <color name="cornflowerblue">#6495ED</color><!--菊兰色 -->
+    <color name="lavenderblush">#FFF0F5</color><!--淡紫红 -->
+    <color name="magenta">#FF00FF</color><!--红紫色 -->
+    <color name="burlywood">#DEB887</color><!--实木色 -->
 </resources>

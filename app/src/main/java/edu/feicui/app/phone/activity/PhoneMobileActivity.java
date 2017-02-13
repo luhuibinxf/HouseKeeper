@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -20,9 +21,10 @@ import java.util.Map;
 
 import edu.feicui.app.phone.R;
 import edu.feicui.app.phone.Util.DialogUtil;
+import edu.feicui.app.phone.base.util.BaseActivity;
 import edu.feicui.app.phone.biz.PhoneDatabase;
 
-public class PhoneMobileActivity extends AppCompatActivity {
+public class PhoneMobileActivity extends BaseActivity {
     Context context;
     ListView mLv;
     TextView mTv;
@@ -31,16 +33,24 @@ public class PhoneMobileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_mobile);
+
+
         mLv = (ListView) findViewById(R.id.phone_lv);
+
         pd = new PhoneDatabase(context);
         Intent intent = getIntent();
         String str = intent.getStringExtra("ok");
+
         list = pd.queryList(Integer.parseInt(str));
+
         String[] from = {"name", "number"};
         int[] to = new int[]{R.id.phone_tv_lv1, R.id.phone_tv_lv2};
+
         SimpleAdapter adapter = new SimpleAdapter(this, list, R.layout.activity_phone_mobile_lv, from, to);
         mLv.setAdapter(adapter);
         mTv = (TextView) findViewById(R.id.phone_tv_lv2);
@@ -58,12 +68,30 @@ public class PhoneMobileActivity extends AppCompatActivity {
                 }, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        setResult(RESULT_OK, getIntent());//不要返回，取消对话框就好了
+//                        setResult(RESULT_OK, getIntent());//不要返回，取消对话框就好了
                         finish();
                     }
                 });
-
             }
         });
     }
+
+    public void Bar() {
+        initActionBar();
+        setmTvL("                                    ");
+        setmTvM("通讯录");
+//        Log.i("@@@@@", "11223332");
+        setmTvR("                                    ");
+        setmIvL(R.mipmap.btn_homeasup_default);
+        mIvL = (ImageView) findViewById(R.id.m_bar_left_iv);
+        mIvL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+//                setResult(RESULT_OK, getIntent());
+                finish();
+            }
+        });
+    }
+
 }
